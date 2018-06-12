@@ -1,10 +1,50 @@
 import React, { Component } from 'react';
-import proptypes from 'prop-types';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
-export default class Dashboard extends Component {
-  render() {
-    return(
-      <div>Dashboard</div>
-    );
-  }
+import Badge from './Shared/Badge';
+
+import * as actions from '../actions';
+
+class Dashboard extends Component {
+	componentDidMount() {
+		this.props.GetUsers();
+	}
+
+	renderUsers() {
+		const { Users } = this.props;
+		return(
+			Users.map(user => {
+				return <Link key={user.Id} className="list-group-item" to="/User">
+					{user.Username}
+					<Badge badges={user.Groups}/>
+				</Link>;
+			})
+		);
+	}
+
+	render() {
+		return(
+			<div className="list-group">
+				{this.renderUsers()}
+			</div>
+		);
+	}
 }
+
+Dashboard.proptypes = {
+	Users: PropTypes.array
+};
+
+Dashboard.defaultProps = {
+	Users: []
+};
+
+function MapStateToProps(state) {
+	return {
+		Users: state.UsersReducer.Users
+	};
+}
+
+export default connect(MapStateToProps, actions)(Dashboard);
