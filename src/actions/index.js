@@ -6,6 +6,11 @@ import {
 	UPDATEUSERDETAILS
 } from '../common/Types';
 
+import {
+	WEBAPI_ENDPOINT,
+	USERS_CONTROLLER
+} from '../config';
+
 export function GetUsers() {
 	return dispatch => {
 		const Users = [
@@ -13,10 +18,13 @@ export function GetUsers() {
 			{ Id: 2, Username: 'user02@email.com', Groups: ['BasicUser'] },
 		];
 
-		dispatch({
-			type: GETUSERS,
-			payload: Users
-		});
+		axios.get(`${WEBAPI_ENDPOINT}${USERS_CONTROLLER}`)
+			.then(response => {
+				dispatch({
+					type: GETUSERS,
+					payload: response.data
+				});
+			});
 	};
 }
 
@@ -43,14 +51,14 @@ export function UpdateUserDetails(id, userDetails) {
 }
 
 function getDetails(id) {
-	if (id === '1') {
+	if (id === 'a16dd0a7-c9f9-423b-8bc8-da4808d5dc73') {
 		return {
 			Firstname: 'User01',
 			Surname: 'User',
 			Mobile: '123123123'
 		};
 	} else
-	if (id === '2') {
+	if (id === '52d365a7-8e07-4874-bf03-df5e2aa07294') {
 		return {
 			Firstname: 'User02',
 			Surname: 'AnotherUser',

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Field, reduxForm } from 'redux-form';
 
 import * as actions from '../actions';
 
@@ -131,4 +130,4 @@ function MapStateToProps(state) {
 	};
 }
 
-export default reduxForm({ form: 'UserForm'})(connect(MapStateToProps, actions)(User));
+export default connect(MapStateToProps, actions)(User);
