@@ -9,7 +9,7 @@ const App = () => (
 	<Router history={browserHistory}>
 		<Switch>
 			<Route exact path="/" component={Dashboard} />
-			<Route path="/User" component={User} />
+			<Route path="/User/:Id" component={User} />
 		</Switch>
 	</Router>
 );

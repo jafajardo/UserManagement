@@ -16,7 +16,7 @@ class Dashboard extends Component {
 		const { Users } = this.props;
 		return(
 			Users.map(user => {
-				return <Link key={user.Id} className="list-group-item" to="/User">
+				return <Link key={user.Id} className="list-group-item" to={`/User/${user.Id}`}>
 					{user.Username}
 					<Badge badges={user.Groups}/>
 				</Link>;

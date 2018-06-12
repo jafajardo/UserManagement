@@ -1,17 +1,24 @@
 import {
-	GETUSERS
+	GETUSERS,
+	GETUSERDETAILS,
+	UPDATEUSERDETAILS
 } from '../common/Types';
 
 const INITIAL_STATE = {
-	Users: []
+	Users: [],
+	UserDetails: {}
 };
 
-export default (state = { Users: [] }, action) => {
+export default (state = INITIAL_STATE, action) => {
 	switch (action.type) {
 	case GETUSERS: {
-		
 		return { ...state, Users: action.payload };
 	}
+	case GETUSERDETAILS: {
+		return { ...state, UserDetails: action.payload };
+	}
+	case UPDATEUSERDETAILS:
+		return { ...state, UserDetails: action.payload };
 	}
 	return state;
 };
