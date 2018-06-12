@@ -28,6 +28,24 @@ class User extends Component {
 		const { match: { params }, GetUserDetails } = this.props;
 		GetUserDetails(params.Id);
   }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.UserDetails.Firstname !== prevProps.UserDetails.Firstname) {
+      this.setState({
+        firstname: this.props.UserDetails.Firstname
+      })
+    }
+    if (this.props.UserDetails.Surname !== prevProps.UserDetails.Surname) {
+      this.setState({
+        surname: this.props.UserDetails.Surname
+      })
+    }
+    if (this.props.UserDetails.Mobile !== prevProps.UserDetails.Mobile) {
+      this.setState({
+        mobile: this.props.UserDetails.Mobile
+      })
+    }
+  }
   
 	handleSubmit = (event) => {
 		event.preventDefault();
@@ -68,7 +86,7 @@ class User extends Component {
 						className="form-control" 
 						id="firstnameInput" 
 						placeholder="First name" 
-            defaultValue= {UserDetails.Firstname}
+            value={this.state.firstname}
             onChange={this.handleFirstnameInputChange} />
 				</div>
 
@@ -79,7 +97,7 @@ class User extends Component {
 						className="form-control" 
 						id="surnameInput" 
 						placeholder="Surname" 
-            defaultValue={UserDetails.Surname}
+            value={this.state.surname}
             onChange={this.handleSurnameInputChange} />
 				</div>
 
@@ -90,7 +108,7 @@ class User extends Component {
 						className="form-control" 
 						id="mobileInput" 
 						placeholder="Mobile number" 
-						defaultValue={UserDetails.Mobile} 
+						value={this.state.mobile} 
             onChange={this.handleMobileInputChange} />
 				</div>
 
