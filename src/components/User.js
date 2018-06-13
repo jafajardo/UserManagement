@@ -9,6 +9,7 @@ class User extends Component {
 		super(props);
     
 		this.state = {
+      username: '',
 			firstname: '',
 			surname: '',
 			mobile: '',
@@ -24,31 +25,45 @@ class User extends Component {
   }
 
 	componentDidMount() {
-		const { match: { params }, GetUserDetails } = this.props;
-		GetUserDetails(params.Id);
+    const { match: { params }, GetUserDetails } = this.props;
+		GetUserDetails(params.Username);
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.UserDetails.Firstname !== prevProps.UserDetails.Firstname) {
+    if (this.state.username === '' && this.props.match.params.Username !== undefined) {
       this.setState({
-        firstname: this.props.UserDetails.Firstname
+        username: this.props.match.params.Username
       })
     }
-    if (this.props.UserDetails.Surname !== prevProps.UserDetails.Surname) {
+    if (this.props.UserDetails.firstname !== prevProps.UserDetails.firstname) {
       this.setState({
-        surname: this.props.UserDetails.Surname
+        firstname: this.props.UserDetails.firstname
       })
     }
-    if (this.props.UserDetails.Mobile !== prevProps.UserDetails.Mobile) {
+    if (this.props.UserDetails.surname !== prevProps.UserDetails.surname) {
       this.setState({
-        mobile: this.props.UserDetails.Mobile
+        surname: this.props.UserDetails.surname
+      })
+    }
+    if (this.props.UserDetails.mobile !== prevProps.UserDetails.mobile) {
+      this.setState({
+        mobile: this.props.UserDetails.mobile
       })
     }
   }
   
 	handleSubmit = (event) => {
 		event.preventDefault();
-    console.dir(this.state)
+
+    const { UpdateUserDetails } = this.props;
+    const userDetails = {
+      "Username": this.state.username,
+      "Firstname": this.state.firstname,
+      "Surname": this.state.surname,
+      "Mobile": this.state.mobile
+    }
+
+    UpdateUserDetails(userDetails);
 	}
   
 	handleFirstnameInputChange = (event) => {
@@ -81,7 +96,7 @@ class User extends Component {
 				<div className="form-group">
 					<label htmlFor="firstnameInput">First name</label>
           <input 
-            key={UserDetails.Firstname}
+            key={UserDetails.firstname}
 						className="form-control" 
 						id="firstnameInput" 
 						placeholder="First name" 
@@ -92,7 +107,7 @@ class User extends Component {
 				<div className="form-group">
 					<label htmlFor="surnameInput">First name</label>
           <input 
-            key={UserDetails.Surname}
+            key={UserDetails.surname}
 						className="form-control" 
 						id="surnameInput" 
 						placeholder="Surname" 
@@ -103,7 +118,7 @@ class User extends Component {
 				<div className="form-group">
 					<label htmlFor="mobileInput">First name</label>
           <input 
-            key={UserDetails.Mobile}
+            key={UserDetails.mobile}
 						className="form-control" 
 						id="mobileInput" 
 						placeholder="Mobile number" 

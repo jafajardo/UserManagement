@@ -17,7 +17,8 @@ export default (state = INITIAL_STATE, action) => {
 	case GETUSERDETAILS: {
 		return { ...state, UserDetails: action.payload };
 	}
-	case UPDATEUSERDETAILS:
+  case UPDATEUSERDETAILS:
+  console.dir(action.payload)
 		return { ...state, UserDetails: action.payload };
 	}
 	return state;
